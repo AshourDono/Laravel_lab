@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
-
 
 class PostController extends Controller
 {
     public function index()
     {
-        $postsArr = [['id' => 1, 'title' => 'First Post', 'postedBy'=>'Ahmed', 'createdAt'=>'2022-02-19'], ['id' => 2, 'title' => 'Second Post', 'postedBy'=>'Sue', 'createdAt'=>'2022-02-13']];
+        $postsArr = Post::all();
+        // dd($postsArr);
 
         return view('posts.index', ['posts'=>$postsArr]);
     }
@@ -19,25 +20,36 @@ class PostController extends Controller
         return view('posts.create');
     }
 
-    public function show($postId){
+    public function show($postId)
+    {
+        $data = Post::find($postId);
         return view('posts.show');
     }
 
-    public function store(){
+    public function store()
+    {
         //capture the data
-        // $requestedData = request()->all();
+        $requestedData = request()->all();
         // dd($requestedData);
+
+        //connect to db
+        Post::create([
+            'title' => $requestedData['title'],
+            'description' => $requestedData['description'],
+            'posted_by'=> $requestedData['post_creator']
+        ]);
 
         //redirection
         return to_route('posts.index');
-        
     }
 
-    public function edit($postId){
+    public function edit($postId)
+    {
         return view('posts.edit', ['postId' => $postId]);
     }
 
-    public function update(){
+    public function update()
+    {
         return to_route('posts.index');
     }
 }

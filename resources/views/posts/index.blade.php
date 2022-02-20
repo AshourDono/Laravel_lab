@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="text-center">
-    <a href="{{route('posts.create')}}" class="btn btn-success my-3">Create Post</a>
+  <a href="{{route('posts.create')}}" class="btn btn-success my-3">Create Post</a>
 </div>
 <table class="table mt-3">
   <thead>
@@ -16,13 +16,13 @@
     </tr>
   </thead>
   <tbody>
-      @foreach($posts as $post)
+    @foreach($posts as $post)
     <tr>
-      <th scope="row">{{$post['id']}}</th>
-      <td>{{$post['title']}}</td>
-      <td>{{$post['postedBy']}}</td>
-      <td>{{$post['createdAt']}}</td>
-      <td><a href="{{route('posts.show',$post['id'])}}" class="btn btn-info">View</a></td>
+      <th scope="row">{{$post->id}}</th>
+      <td>{{$post->title}}</td>
+      <td>{{$post->posted_by}}</td>
+      <td>{{$post->created_at}}</td>
+      <td><a href="{{route('posts.show',$post['id'])}}" class="btn btn-info">Show</a></td>
       <td><a href="{{route('posts.edit',$post['id'])}}" class="btn btn-primary">Edit</a></td>
       <td><a href="#" class="btn btn-danger">Delete</a></td>
     </tr>
