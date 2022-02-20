@@ -20,10 +20,24 @@ class PostController extends Controller
     }
 
     public function show($postId){
-        return $postId;
+        return view('posts.show');
     }
 
     public function store(){
-        return view('posts.show');
+        //capture the data
+        // $requestedData = request()->all();
+        // dd($requestedData);
+
+        //redirection
+        return to_route('posts.index');
+        
+    }
+
+    public function edit($postId){
+        return view('posts.edit', ['postId' => $postId]);
+    }
+
+    public function update(){
+        return to_route('posts.index');
     }
 }
