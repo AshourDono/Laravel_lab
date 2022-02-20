@@ -6,8 +6,8 @@
     Post Info
   </div>
   <div class="card-body">
-    <h5 class="card-title">Title: Special title treatment</h5>
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    <h5 class="card-title">Title: {{$post->title}}</h5>
+    <p class="card-text">{{$post->description}}</p>
   </div>
 </div>
 
@@ -16,9 +16,9 @@
     Post Creator Info
   </div>
   <div class="card-body">
-    <h5 class="card-title">Name: Ahmed</h5>
-    <h5 class="card-title">Email: ahmed@gmail.com</h5>
-    <h5 class="card-title">Created At: Thursday 25th of December 1975 02:15:16 PM</h5>
+    <h5 class="card-title">Name: {{$post->user? $post->user->name: "not found"}}</h5>
+    <h5 class="card-title">Email: {{$post->user? $post->user->email: "not found"}}</h5>
+    <h5 class="card-title">Created At: {{$post->user? $post->created_at: "not found"}}</h5>
   </div>
 </div>
 
