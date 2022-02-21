@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layouts.app')
 @section('content')
 <form method="post" action="{{route('posts.update',$post['id'])}}" class="mt-5">
   @csrf
