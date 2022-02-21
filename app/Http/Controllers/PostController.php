@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -28,7 +29,7 @@ class PostController extends Controller
         return view('posts.show', ['post'=> $post]);
     }
 
-    public function store()
+    public function store(StorePostRequest $request)
     {
         //capture the data
         $requestedData = request()->all();
@@ -48,7 +49,7 @@ class PostController extends Controller
         return view('posts.edit', ['post' => $post, 'users' =>$users]);
     }
 
-    public function update($postId)
+    public function update($postId, StorePostRequest $request)
     {
         // $post = Post::find($postId);
         $requestedData = request()->all();
