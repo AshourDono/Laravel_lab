@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
+use App\Jobs\PruneOldPostsJob;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -11,18 +12,19 @@ class PostController extends Controller
 {
     public function index()
     {
+        PruneOldPostsJob::dispatch();
+        // dd('done');
         $postsArr = Post::paginate(10);
-        // dd($postsArr);
-
+        
         return view('posts.index', ['posts'=>$postsArr]);
     }
-
+    
     public function create()
     {
         $users = User::all();
         return view('posts.create', ['users'=>$users]);
     }
-
+    
     public function show($postId)
     {
         $post = Post::find($postId);
@@ -49,13 +51,17 @@ class PostController extends Controller
         return view('posts.edit', ['post' => $post, 'users' =>$users]);
     }
 
-    public function update($postId, StorePostRequest $request)
+    public function update(StorePostRequest $request, $postId)
     {
         // $post = Post::find($postId);
-        $requestedData = request()->all();
+        $requestedData = request()->only(['title','description','user_id']);
 
 
-        Post::find($postId)->update([
+        $post= Post::find($postId);
+
+        $post->slug = null;
+        
+        $post->update([
             'title' => $requestedData['title'] , 'description' => $requestedData['description'],
             'user_id' => $requestedData['user_id']
         ]);

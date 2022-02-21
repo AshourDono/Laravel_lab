@@ -9,6 +9,7 @@
   <thead>
     <tr>
       <th scope="col">Id</th>
+      <th scope="col">TitleSlugged</th>
       <th scope="col">Title</th>
       <th scope="col">Posted By</th>
       <th scope="col">Created At</th>
@@ -19,6 +20,7 @@
     @foreach($posts as $post)
     <tr>
       <th scope="row">{{$post->id}}</th>
+      <td>{{$post->slug}}</td>
       <td>{{$post->title}}</td>
       <td>{{$post->user? $post->user->name: "not found"}}</td>
       <td>{{$post->created_at}}</td>
