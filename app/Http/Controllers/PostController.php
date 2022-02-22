@@ -12,7 +12,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        PruneOldPostsJob::dispatch();
+        // PruneOldPostsJob::dispatch();
         // dd('done');
         $postsArr = Post::paginate(10);
         

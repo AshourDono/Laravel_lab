@@ -10,7 +10,6 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-
 class PruneOldPostsJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -32,6 +31,6 @@ class PruneOldPostsJob implements ShouldQueue
      */
     public function handle()
     {
-        Post::where('id', '>', 495)-> delete();
+        Post::where('id', '>', 300)-> delete();
     }
 }
