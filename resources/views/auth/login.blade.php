@@ -62,7 +62,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Login') }}
                                 </button>
-                                <a href="#" class="btn btn-success">
+                                <a href="{{route('github.login')}}" class="btn btn-success">
                                     Login With Github
                                 </a>
 
