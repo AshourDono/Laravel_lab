@@ -76,5 +76,36 @@ Route::get('/auth/callback', function () {
     Auth::login($user);
  
     return redirect('/home');
+});
 
+//google oauth socialite
+
+Route::get('/auth/redirect', function () {
+    return  Socialite::driver('google')->redirect();
+})->name('google.login');
+ 
+Route::get('/auth/callback', function () {
+    $googleUser = Socialite::driver('google')->stateless()->user();
+    // dd('Hamada');
+    // $user->token
+    $user = User::where('google_id', $googleUser->id)->first();
+ 
+    if ($user) {
+        $user->update([
+            'google_token' => $googleUser->token,
+            'google_refresh_token' => $googleUser->refreshToken,
+        ]);
+    } else {
+        $user = User::create([
+            'name' => $googleUser->name,
+            'email' => $googleUser->email,
+            'google_id' => $googleUser->id,
+            'google_token' => $googleUser->token,
+            'google_refresh_token' => $googleUser->refreshToken,
+        ]);
+    }
+ 
+    Auth::login($user);
+ 
+    return redirect('/home');
 });
